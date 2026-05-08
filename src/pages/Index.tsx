@@ -123,7 +123,7 @@ const experienceItems: SectionItem[] = [
     bullets: [
       "Posse Summer Leadership Award - Posse Foundation · 2026 · $2700",
       "Certificate of Achievement - \"For your outstanding achievement and securing your winning position in the Brandeis 2026 Datathon\" · 2026",
-      "Best Non-Technical Hack — DeisHacks 2026 · $500 award",
+      "Best Non-Technical Hack (UX/UI) — DeisHacks 2026 · $500 award",
       "Posse Foundation Full-Tuition Scholarship — 1 of 12 selected from ~3,000 · $250K+ value · 2029",
       "Dean's List — Brandeis University · 2025-2026",
       "F. Coit Johnson Academic Excellence Award — Perfect straight-A transcript · LREI 2025",
@@ -146,7 +146,7 @@ const projectItems: SectionItem[] = [
   {
     title: "🥇 Museum Website Revamp - DeisHacks",
     description:
-      'Led a 48-hour hackathon sprint revamping the Charles River Museum of Industry & Innovation\'s website as Lead Product Developer. This was my first time with UX/UI design and I was able to win 2nd Place, $500 prize. There were 40 teams competing in the hackathon.',
+      'Led a 48-hour hackathon sprint revamping the Charles River Museum of Industry & Innovation\'s website as Lead Product Developer. This was my first time with UX/UI design and I was able to win 1st for UX/UI Design, $500 prize. There were 40 teams competing in the hackathon.',
     image: deishacksWin,
     link: { text: "View on Devpost →", url: "https://devpost.com/software/askdjaskd" },
   },
@@ -373,7 +373,7 @@ const Index = () => {
                 <Linkedin size={14} />
               </a>
               <a
-                href="https://github.com/DanielASC22"
+                href="https://github.com/olusheki"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors"
