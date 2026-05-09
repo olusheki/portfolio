@@ -155,13 +155,13 @@ const projectItems: SectionItem[] = [
     description:
       'Won First Place in the 2026 Lovable Buildathon, where I created the BioTrial Auditor, tool that helps researchers provide reliable reports using AI.',
     images: biotrialSlides,
-    link: { text: "Try it out →", url: "https://danielasc22.github.io/biotrial/login" },
+    link: { text: "Try it out →", url: "https://olusheki.github.io/biotrial/login" },
   },
   {
     title: "ShareService - All Star Code",
     description:
       "Full-stack volunteering accessibility website built at All Star Code. An audience member donated $100 to a featured organization after the demo.",
-    link: { text: "View project →", url: "https://danielasc22.github.io/ShareService/" },
+    link: { text: "View project →", url: "https://olusheki.github.io/ShareService/" },
   },
   {
     title: "Mass Shootings in America - Data Science",

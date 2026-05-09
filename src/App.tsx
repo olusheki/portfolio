@@ -15,14 +15,14 @@ const SEO = () => (
     <title>Daniel Olusheki | Portfolio</title>
     <meta name="description" content="Portfolio of Daniel Olusheki, Computer Science and Biology student at Brandeis University. Featuring the Charles River Museum project and bioinformatic research." />
     <meta name="keywords" content="Daniel Olusheki, Brandeis, CS, Biology, Portfolio, Software Engineering" />
-    <link rel="canonical" href="https://danielasc22.github.io/portfolio/" />
+    <link rel="canonical" href="https://olusheki.com/" />
     <script type="application/ld+json">
       {`
         {
           "@context": "https://schema.org",
           "@type": "WebSite",
           "name": "Daniel Olusheki",
-          "url": "https://danielasc22.github.io/portfolio/"
+          "url": "https://olusheki.com/"
         }
       `}
     </script>
