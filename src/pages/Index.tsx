@@ -282,8 +282,8 @@ const LeetCodeCard = ({ className = "" }: { className?: string }) => {
   const { data, isLoading } = useLeetCodeStats();
   return (
     <div className={`border border-border rounded-sm bg-card overflow-hidden ${className}`}>
-      <div className="px-4 py-3 border-b border-border flex items-center justify-between flex-shrink-0">
-        <span className="text-sm font-medium text-foreground tracking-wide uppercase">LeetCode</span>
+      <div className="px-4 2xl:px-5 py-3 2xl:py-4 border-b border-border flex items-center justify-between flex-shrink-0">
+        <span className="text-sm 2xl:text-base font-medium text-foreground tracking-wide uppercase">LeetCode</span>
         <a
           href="https://leetcode.com/u/persheki/"
           target="_blank"
@@ -313,14 +313,14 @@ const LeetCodeCard = ({ className = "" }: { className?: string }) => {
 const Index = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-background px-8 md:px-16 lg:px-24 py-16">
-      <div className="w-full max-w-4xl space-y-5">
+      <div className="w-full max-w-4xl 2xl:max-w-5xl 3xl:max-w-6xl 4xl:max-w-[1800px] space-y-5 2xl:space-y-6 3xl:space-y-7 4xl:space-y-8">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
-            <div className="text-xl md:text-2xl font-light text-foreground">
+            <div className="text-xl md:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl font-light text-foreground">
               <ChromaticGlitch phrases={HELLO_PHRASES} interval={4000} className="inline" />
               <span className="text-muted-foreground">,</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-semibold text-foreground leading-relaxed">
+            <h1 className="text-2xl md:text-3xl 2xl:text-4xl 3xl:text-5xl 4xl:text-6xl font-semibold text-foreground leading-relaxed">
               <MonoGlitch trigger="hover" text="I'm Daniel Olusheki" skipIntro walkStep={3} />
             </h1>
           </div>
@@ -328,7 +328,7 @@ const Index = () => {
         </div>
 
         {/* Bio */}
-        <p className="text-sm text-muted-foreground leading-relaxed max-w-lg">
+        <p className="text-sm 2xl:text-base 3xl:text-lg 4xl:text-xl text-muted-foreground leading-relaxed max-w-lg 2xl:max-w-2xl 3xl:max-w-3xl 4xl:max-w-4xl">
           <MonoGlitch
             trigger="hover"
             text="First-year Computer Science and Biology student at Brandeis University who is passionate about solving complex problems through creative and analytical thinking."
@@ -336,7 +336,7 @@ const Index = () => {
         </p>
 
         {/* Section cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 2xl:gap-4 3xl:gap-5 4xl:gap-6">
           <SectionCard title="Experience" items={experienceItems} />
           <SectionCard title="Projects" items={projectItems} />
           <SectionCard title="Skills" items={skillItems} />
