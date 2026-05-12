@@ -4,6 +4,7 @@ type Frontmatter = {
   title?: string;
   date?: string;
   excerpt?: string;
+  pinned?: boolean;
   links?: { text: string; url: string }[];
 };
 
@@ -67,6 +68,8 @@ const parseFrontmatter = (raw: string): { data: Frontmatter; content: string } =
       const value = parseScalar(rest);
       if (key === "title" || key === "date" || key === "excerpt") {
         data[key] = value;
+      } else if (key === "pinned") {
+        data.pinned = value.toLowerCase() === "true";
       }
       i++;
     }
@@ -99,14 +102,19 @@ export const blogPosts: BlogPost[] = Object.entries(files)
     const isoDate = data.date ?? "";
     return {
       sortKey: isoDate || path,
+      pinned: data.pinned === true,
       post: {
         title: data.title ?? "Untitled",
         date: formatDisplayDate(isoDate),
         excerpt: data.excerpt ?? "",
         content: content.trim(),
         links: data.links,
+        pinned: data.pinned === true,
       } satisfies BlogPost,
     };
   })
-  .sort((a, b) => (a.sortKey < b.sortKey ? 1 : -1))
+  .sort((a, b) => {
+    if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
+    return a.sortKey < b.sortKey ? 1 : -1;
+  })
   .map(({ post }) => post);

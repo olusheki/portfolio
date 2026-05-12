@@ -52,6 +52,7 @@ const HELLO_PHRASES = [
 const experienceItems: SectionItem[] = [
   {
     title: "Incoming Positions",
+    current: true,
     bullets: [
       "BreakThroughTech AI/ML Fellow @ CornellTech - Jun 2026",
       "Community Advisor (Resident Assistant) @ Brandeis University - Aug 2026",
@@ -61,6 +62,7 @@ const experienceItems: SectionItem[] = [
   },
   {
     title: "Android Developer & Event Coordinator - Branda ",
+    current: true,
     subtitle: "Brandeis University · Branda App · Feb 2026 – Present",
     link: { text: "Learn More →", url: "https://www.instagram.com/brandaapp/" },
     bullets: [
@@ -71,6 +73,7 @@ const experienceItems: SectionItem[] = [
   },
   {
     title: "Undergraduate Computational Biology Researcher",
+    current: true,
     subtitle: "Brandeis University · Sebastian Kadener Lab · Sep 2025 – Present",
     link: { text: "Learn More →", url: "https://www.kadenerlab.com/" },
     bullets: [
@@ -80,6 +83,7 @@ const experienceItems: SectionItem[] = [
   },
   {
     title: "TAMID Group @ Brandeis",
+    current: true,
     subtitle: "Brandeis University · Oct 2025 – Present",
     bullets: [
       "Developed a comprehensive business plan for a startup, including multi-tiered B2B and B2C outreach strategies alongside 3-year financial projections, targeted marketing, risk mitigation, and legal compliance frameworks"

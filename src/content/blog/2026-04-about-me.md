@@ -1,6 +1,7 @@
 ---
 title: About Me
 date: 2026-04-01
+pinned: true
 excerpt: ...I want this to be a more informal introduction to me, so here are some things about me...
 ---
 

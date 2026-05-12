@@ -15,6 +15,7 @@ export interface SectionItem {
   images?: string[];
   video?: string;
   pdf?: string;
+  current?: boolean;
 }
 
 interface SectionCardProps {
@@ -162,7 +163,7 @@ const SectionCard = ({ title, items, disableGlitch, badge }: SectionCardProps) =
             </span>
           )}
         </div>
-        <div className="max-h-[120px] overflow-y-auto">
+        <div className="max-h-[120px] 2xl:max-h-[180px] 3xl:max-h-[240px] 4xl:max-h-[320px] overflow-y-auto">
           {items.map((item, i) => {
             const isVisited = visited.has(item.title);
             return (
@@ -171,8 +172,17 @@ const SectionCard = ({ title, items, disableGlitch, badge }: SectionCardProps) =
                 onClick={() => openModal(i)}
                 className="group flex items-center justify-between w-full px-4 py-2.5 hover:bg-accent transition-colors text-left border-b border-border last:border-b-0"
               >
-                <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors truncate">
-                  {item.title}
+                <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors min-w-0 flex items-start">
+                  {item.current && (
+                    <sup
+                      aria-label="current"
+                      className="mr-1 mt-0.5 flex-shrink-0 text-[9px] leading-none font-bold"
+                      style={{ color: VISITED_RED }}
+                    >
+                      *
+                    </sup>
+                  )}
+                  <span className="truncate">{item.title}</span>
                 </span>
                 <ArrowRight
                   className={`w-3 h-3 flex-shrink-0 ml-2 transition-colors ${
@@ -217,7 +227,18 @@ const SectionCard = ({ title, items, disableGlitch, badge }: SectionCardProps) =
                             : "text-muted-foreground hover:bg-accent/60 hover:text-foreground"
                         }`}
                       >
-                        <TruncTooltip label={it.title} className="flex-1" />
+                        <span className="flex-1 min-w-0 flex items-start">
+                          {it.current && (
+                            <sup
+                              aria-label="current"
+                              className="mr-1 mt-0.5 flex-shrink-0 text-[10px] leading-none font-bold"
+                              style={{ color: VISITED_RED }}
+                            >
+                              *
+                            </sup>
+                          )}
+                          <TruncTooltip label={it.title} />
+                        </span>
                         <ArrowRight
                           className="w-3 h-3 flex-shrink-0 ml-2 transition-colors"
                           style={isVisited ? { color: VISITED_RED } : undefined}
