@@ -45,7 +45,7 @@ const HELLO_PHRASES = [
   "Konnichiwa",
   "Annyeonghaseyo",
   "Marhaba",
-  "E karro",
+  "Bawo ni",
   "As-salamu alaykum",
 ];
 

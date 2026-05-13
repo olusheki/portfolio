@@ -1,86 +1,125 @@
 # Daniel Olusheki — Personal Portfolio
 
-A minimal, dark-themed personal portfolio website built with React, Vite, Tailwind CSS, and TypeScript. Features a bento-grid layout, animated text effects, a live LeetCode stats widget, and light/dark mode toggle.
+A minimal, dark-themed personal portfolio site built with React, Vite, Tailwind CSS, and TypeScript. Features a bento-grid layout, animated text effects, a live LeetCode stats widget, a markdown-powered blog, and a light/dark mode toggle.
+
+Live at [olusheki.com](https://olusheki.com/).
 
 ---
 
 ## Using This as a Template
 
-To adapt this site for your own portfolio, update the following:
+To adapt this site for your own portfolio, update the following areas. Sections are listed in roughly the order most people will want to touch them.
 
-### 1. Content (`src/pages/Index.tsx`)
+### 1. Portfolio content (`src/pages/Index.tsx`)
 
-All portfolio content lives in data arrays at the top of this file:
+Section content lives in typed data arrays near the top of [src/pages/Index.tsx](src/pages/Index.tsx):
 
-- **`HELLO_PHRASES`** — Rotating greeting text
-- **`experienceItems`** — Work experience and awards
-- **`projectItems`** — Featured projects (supports images, links, descriptions)
-- **`skillItems`** — Skills grouped by category
-- **`courseItems`** — Relevant coursework
-- **`blogPosts`** — Blog entries for the new BlogCard
+- **`HELLO_PHRASES`** — Rotating greeting text in the hero.
+- **`experienceItems`** — Work, research, and awards.
+- **`projectItems`** — Featured projects (images, carousels, videos, PDFs, links).
+- **`skillItems`** — Skills grouped by category.
+- **`courseItems`** — Relevant coursework.
 
-Update the bio paragraph and footer links (email, LinkedIn, GitHub) in the JSX below the data arrays.
+Update the bio paragraph and the footer (email, LinkedIn, GitHub, resume link, location) directly in the JSX below the data arrays.
 
-#### SectionItem Keys
+#### `SectionItem` keys
 
-Each item in the data arrays is a `SectionItem` object. Here are all available keys:
+Every entry in `experienceItems` / `projectItems` / `skillItems` / `courseItems` is a `SectionItem` (defined in [src/components/SectionCard.tsx](src/components/SectionCard.tsx)). All keys except `title` are optional and can be combined freely.
 
 | Key | Type | Description |
 |-----|------|-------------|
-| `title` | `string` | **Required.** The item's heading displayed in the modal. |
-| `modalTitle` | `string` | Optional override for the modal header (e.g., "My Story" instead of the card title). |
-| `subtitle` | `string` | Secondary text shown below the title (e.g., company, date range). |
+| `title` | `string` | **Required.** Heading shown on the card and modal. |
+| `modalTitle` | `string` | Overrides the modal header (e.g. "My Story" instead of the card title). |
+| `subtitle` | `string` | Secondary text (e.g. company, date range). |
 | `description` | `string` | A paragraph of body text. |
-| `bullets` | `string[]` | Bulleted list of details (e.g., responsibilities, achievements). |
+| `bullets` | `string[]` | Bulleted list (responsibilities, achievements). |
 | `tags` | `string[]` | Inline tag chips (used for skills, courses, etc.). |
-| `link` | `{ text: string; url: string }` | An external link rendered below the description. |
-| `image` | `string` | A single image (imported asset or URL). Clickable to expand in a lightbox. |
-| `images` | `string[]` | Array of images for a carousel (uses Embla). Overrides single `image`. |
-| `video` | `string` | A YouTube or Vimeo URL embedded as an iframe. |
-| `pdf` | `string` | Path to a PDF file (in `public/`). Embedded in an iframe with clickable links. |
+| `link` | `{ text: string; url: string }` | External link rendered below the description. |
+| `image` | `string` | Single image (imported asset or URL). Click to expand in a lightbox. |
+| `images` | `string[]` | Array of images for a carousel (Embla). Overrides single `image`. |
+| `video` | `string` | YouTube or Vimeo URL, embedded as an iframe. |
+| `pdf` | `string` | Path to a PDF in `public/`, embedded as an iframe. |
+| `current` | `boolean` | Marks the item as "current" (shows a small indicator on the card). |
 
-All keys except `title` are optional and can be combined freely.
+### 2. Blog posts (`src/content/blog/*.md`)
 
-#### BlogPost Keys
+Posts are individual markdown files in [src/content/blog/](src/content/blog/). They are loaded at build time via Vite's `import.meta.glob` from [src/content/blog/index.ts](src/content/blog/index.ts) — to add a post, just drop in a new `.md` file. No registration step.
 
-Each item in the `blogPosts` array is a `BlogPost` object.
+Each file uses YAML frontmatter followed by markdown. Example:
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `title` | `string` | **Required.** Title of the post. |
-| `date` | `string` | **Required.** Displayed date (e.g., "Mar 2026"). |
-| `excerpt` | `string` | **Required.** Short description appearing on the card hover card. |
-| `content` | `string` | **Required.** The full content of the blog post shown in the modal. |
-| `link` | `{ text: string; url: string }` | Optional external link for the post. |
+```markdown
+---
+title: About Me
+date: 2026-04-01
+pinned: true
+excerpt: A short blurb shown on the card hover.
+links:
+  - text: GitHub
+    url: https://github.com/yourname
+  - text: Personal site
+    url: https://example.com
+---
 
-### 2. Resume
+First paragraph of the post.
 
-Replace `public/Daniel_Olusheki_Resume.pdf` with your own resume file and update the link in the footer if the filename changes.
+![Optional image](/me.jpeg)
 
-### 3. Images
+Second paragraph. Markdown features supported: **bold**, *italic*, [links](https://example.com), lists, tables, code, blockquotes, images, and horizontal rules (GFM via `remark-gfm`).
+```
 
-Add project images to `src/assets/` and import them at the top of `Index.tsx`. Reference them via the `image` field in `projectItems`.
+#### Frontmatter fields
 
-### 4. LeetCode Widget
+| Field | Type | Notes |
+|-------|------|-------|
+| `title` | `string` | Required. |
+| `date` | `string` | Required. ISO format `YYYY-MM-DD`; rendered as `Apr 1, 2026`. Also used for sort order (newest first). |
+| `excerpt` | `string` | Short preview text. |
+| `pinned` | `boolean` | When `true`, the post sticks to the top of the list and shows a pin icon. |
+| `links` | list | Optional list of `{ text, url }` shown inside the modal. |
 
-Update the username in `src/hooks/useLeetCodeStats.ts` to your own LeetCode profile, or remove the `<LeetCodeCard />` component if not needed.
+#### Markdown content
 
-### 5. Theme & Styling
+The body is rendered with `react-markdown` + `remark-gfm`. Element styling is defined by `markdownComponents` in [src/components/BlogCard.tsx](src/components/BlogCard.tsx) — tweak there to restyle headings, code blocks, tables, images, etc.
 
-- Colors and design tokens are defined in `src/index.css`
-- Tailwind config is in `tailwind.config.ts`
-- The site supports light and dark modes via `<ThemeToggle />`
+Image paths starting with `/` resolve against `public/` (e.g. `![me](/me.jpeg)` → `public/me.jpeg`). For assets that should be hashed/optimized, import them in TS and reference them from `Index.tsx` instead.
 
-### 6. Metadata
+The frontmatter parser is intentionally minimal (no YAML dependency) — it supports the fields above, scalars, and the `links` list. If you add new frontmatter fields, extend `parseFrontmatter` in [src/content/blog/index.ts](src/content/blog/index.ts).
 
-Update the `<title>` and meta tags in `index.html`.
+### 3. Resume
+
+Replace [public/Daniel_Olusheki_Resume.pdf](public/Daniel_Olusheki_Resume.pdf) with your own and update the link in the footer of `Index.tsx` if you change the filename.
+
+### 4. Images and other static assets
+
+- Bundled assets (project screenshots, carousel slides): put them in [src/assets/](src/assets/) and import them at the top of `Index.tsx`. Carousels use Vite glob imports — e.g. files matching `src/assets/distortion/slide-*.jpg` are auto-collected.
+- Public assets (served as-is): put them in [public/](public/) — referenced by absolute path (`/file.jpeg`). Used for the resume PDF, blog images, the OG preview image, and `robots.txt`.
+
+### 5. LeetCode widget
+
+[src/hooks/useLeetCodeStats.ts](src/hooks/useLeetCodeStats.ts) fetches stats from a public LeetCode API. Update the username there, or remove the `<LeetCodeCard />` element in `Index.tsx` if you don't need it.
+
+### 6. Theme and styling
+
+- Design tokens (colors, fonts) live in [src/index.css](src/index.css) as CSS variables for light and dark mode.
+- Tailwind config is [tailwind.config.ts](tailwind.config.ts).
+- Theme switching is handled by `next-themes` via [src/components/ThemeToggle.tsx](src/components/ThemeToggle.tsx).
+
+### 7. Metadata and deploy target
+
+- Update `<title>` and meta/OG tags in [index.html](index.html).
+- Update `homepage` in [package.json](package.json) and the basename in [src/App.tsx](src/App.tsx) if you deploy to a sub-path (e.g. `username.github.io/portfolio`). For a custom domain at the root, keep the basename as `/`.
+- Replace [public/preview.png](public/preview.png) with your own OG/social preview image.
 
 ---
 
 ## Development
 
 ```sh
-npm i
-npm run dev
+npm i           # install
+npm run dev     # vite dev server
+npm run build   # production build
+npm run lint    # eslint
+npm run test    # vitest (one-shot)
 ```
 
+Requires Node 18+.
