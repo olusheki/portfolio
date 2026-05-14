@@ -165,6 +165,15 @@ const BlogCard = ({ posts }: BlogCardProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (activeIndex === null) return;
+    const original = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, [activeIndex]);
+
   return (
     <>
       {/* Card with scrollable preview */}
@@ -217,12 +226,12 @@ const BlogCard = ({ posts }: BlogCardProps) => {
       {/* Detail modal */}
       {post && (
         <div
-          className={`fixed inset-0 z-50 flex items-center justify-center bg-background/90 backdrop-blur-sm ${closing ? "animate-modal-overlay-out" : "animate-modal-overlay-in"}`}
+          className={`fixed inset-0 z-50 flex items-stretch md:items-center justify-center bg-background/90 backdrop-blur-sm ${closing ? "animate-modal-overlay-out" : "animate-modal-overlay-in"}`}
           onClick={closeModal}
         >
           <div
             onClick={e => e.stopPropagation()}
-            className={`relative w-full max-w-2xl md:max-w-4xl mx-6 h-[70vh] flex flex-col md:flex-row border border-border bg-card rounded-sm overflow-hidden ${closing ? "animate-modal-content-out" : "animate-modal-content-in"}`}
+            className={`relative w-full max-w-2xl md:max-w-4xl m-4 md:mx-6 md:my-0 h-auto md:h-[70vh] min-h-0 flex flex-col md:flex-row border border-border bg-card rounded-sm overflow-hidden ${closing ? "animate-modal-content-out" : "animate-modal-content-in"}`}
           >
             {/* Left rail (md+) */}
             <aside className="hidden md:flex md:w-56 flex-col border-r border-border flex-shrink-0">
@@ -269,7 +278,7 @@ const BlogCard = ({ posts }: BlogCardProps) => {
             </aside>
 
             {/* Right pane */}
-            <div className="flex-1 flex flex-col min-w-0">
+            <div className="flex-1 flex flex-col min-w-0 min-h-0">
               <div className="flex-shrink-0 p-8 pb-0">
                 <button
                   onClick={closeModal}
@@ -291,7 +300,7 @@ const BlogCard = ({ posts }: BlogCardProps) => {
                 </h2>
               </div>
 
-              <div key={activeIndex} className="flex-1 overflow-y-auto px-8 pb-4 min-h-0 animate-fade-in">
+              <div key={activeIndex} className="flex-1 overflow-y-auto overscroll-contain px-8 pb-4 min-h-0 animate-fade-in" style={{ touchAction: "pan-y", WebkitOverflowScrolling: "touch" }}>
                 {typeof post.content === "string" ? (
                   <div className="text-xs text-muted-foreground leading-relaxed">
                     <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
