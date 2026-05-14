@@ -16,10 +16,27 @@ type State = {
 const ROWS_DEFAULT = 9;
 const COLS_DEFAULT = 41;
 const ROWS_MAX = 11;
+const COLS_MAX = 61;
 const WAVE_COUNT = 3;
 const HISTORY_MAX = 40;
 
 const RAMP = " .:-=+*#%@";
+
+// Ramp-transition glyphs (same vocabulary as AsciiTimePattern). Used only on
+// discrete jumps (Randomize / Prev / Next) — sliders stay live.
+const TRANSITION_MS = 700;
+const STAGGER_MAX = 220;
+const GROW           = [" ", ".", ":", "+", "*"] as const;
+const DECAY          = ["*", "+", ":", ".", " "] as const;
+const FILLED_FLICKER = ["*", "+", ":", "+", "*"] as const;
+const EMPTY_FLICKER  = [" ", ".", ":", ".", " "] as const;
+const OPACITY_FOR_GLYPH: Record<string, number> = {
+  " ": 0,
+  ".": 0.32,
+  ":": 0.55,
+  "+": 0.78,
+  "*": 1,
+};
 
 const generate = (
   ws: Wave[],
@@ -28,7 +45,7 @@ const generate = (
   C: number,
   warp: number,
   ramp: boolean,
-) => {
+): string[][] => {
   const cr = (R - 1) / 2;
   const cc = (C - 1) / 2;
   return Array.from({ length: R }, (_, r) =>
@@ -60,10 +77,8 @@ const generate = (
         return RAMP[idx];
       }
       return "*";
-    })
-      .join("")
-      .trimEnd(),
-  ).join("\n");
+    }),
+  );
 };
 
 const randomFromSeed = (seed: number): { ws: Wave[]; thresh: number; warp: number } => {
@@ -136,7 +151,6 @@ const AsciiPlayground = () => {
   const [ramp, setRamp] = useState(false);
   const [playingDensity, setPlayingDensity] = useState(false);
   const [playingWarp, setPlayingWarp] = useState(false);
-  const [flashing, setFlashing] = useState(false);
   const [copyState, setCopyState] = useState<"idle" | "ok" | "error">("idle");
 
   const historyRef = useRef<State[]>([
@@ -152,7 +166,131 @@ const AsciiPlayground = () => {
   ]);
   const historyIdxRef = useRef(0);
 
+  // Cell-level DOM refs — we mutate textContent + opacity imperatively so the
+  // ramp transition doesn't trigger ROWS_MAX*COLS_MAX React re-renders per step.
+  const cellsRef = useRef<(HTMLSpanElement | null)[][]>([]);
+  // Last grid we painted. Used as the "previous" grid for ramp transitions.
+  const lastGridRef = useRef<string[][] | null>(null);
+  // Generation counter — in-flight ramp steps bail if a newer transition starts.
+  const tokenRef = useRef(0);
+  const timeoutsRef = useRef<number[]>([]);
+
   const ascii = generate(waves, threshold, rows, cols, warp, ramp);
+
+  // Paint a cell. r/c are absolute coords in the ROWS_MAX × COLS_MAX cell grid.
+  const paintCell = useCallback((r: number, c: number, glyph: string) => {
+    const cell = cellsRef.current[r]?.[c];
+    if (!cell) return;
+    cell.textContent = glyph === " " ? " " : glyph;
+    cell.style.opacity = glyph === " " ? "0" : "1";
+  }, []);
+
+  // Paint a cell to a transition-ramp glyph (uses ramp opacity table).
+  const paintTransitionCell = useCallback((r: number, c: number, glyph: string) => {
+    const cell = cellsRef.current[r]?.[c];
+    if (!cell) return;
+    cell.textContent = glyph === " " ? " " : glyph;
+    cell.style.opacity = String(OPACITY_FOR_GLYPH[glyph] ?? 0);
+  }, []);
+
+  // Paint the full ROWS_MAX × COLS_MAX field from a logical (R × C) grid,
+  // centering it in the larger grid and filling the surround with blanks.
+  // Bumps tokenRef + cancels pending step timeouts so a slider change during
+  // an in-flight ramp transition wins immediately.
+  const paintField = useCallback(
+    (grid: string[][]) => {
+      tokenRef.current += 1;
+      timeoutsRef.current.forEach((id) => window.clearTimeout(id));
+      timeoutsRef.current = [];
+      const R = grid.length;
+      const C = R > 0 ? grid[0].length : 0;
+      const rOffset = Math.floor((ROWS_MAX - R) / 2);
+      const cOffset = Math.floor((COLS_MAX - C) / 2);
+      for (let r = 0; r < ROWS_MAX; r++) {
+        for (let c = 0; c < COLS_MAX; c++) {
+          const lr = r - rOffset;
+          const lc = c - cOffset;
+          const inside = lr >= 0 && lr < R && lc >= 0 && lc < C;
+          paintCell(r, c, inside ? grid[lr][lc] : " ");
+        }
+      }
+      lastGridRef.current = grid;
+    },
+    [paintCell],
+  );
+
+  // Run the ramp transition between the previously painted field and `target`.
+  const transitionToField = useCallback(
+    (target: string[][]) => {
+      const myToken = ++tokenRef.current;
+      timeoutsRef.current.forEach((id) => window.clearTimeout(id));
+      timeoutsRef.current = [];
+
+      const R = target.length;
+      const C = R > 0 ? target[0].length : 0;
+      const rOffset = Math.floor((ROWS_MAX - R) / 2);
+      const cOffset = Math.floor((COLS_MAX - C) / 2);
+
+      const prev = lastGridRef.current;
+      const prevR = prev ? prev.length : 0;
+      const prevC = prevR > 0 ? prev![0].length : 0;
+      const prevROff = Math.floor((ROWS_MAX - prevR) / 2);
+      const prevCOff = Math.floor((COLS_MAX - prevC) / 2);
+
+      const stages = GROW.length;
+
+      for (let r = 0; r < ROWS_MAX; r++) {
+        for (let c = 0; c < COLS_MAX; c++) {
+          const lr = r - rOffset;
+          const lc = c - cOffset;
+          const targetGlyph =
+            lr >= 0 && lr < R && lc >= 0 && lc < C ? target[lr][lc] : " ";
+
+          const plr = r - prevROff;
+          const plc = c - prevCOff;
+          const prevGlyph =
+            prev && plr >= 0 && plr < prevR && plc >= 0 && plc < prevC
+              ? prev[plr][plc]
+              : " ";
+
+          const wasFilled = prevGlyph !== " ";
+          const willFill = targetGlyph !== " ";
+
+          let rampSeq: ReadonlyArray<string>;
+          if (!wasFilled && willFill) rampSeq = GROW;
+          else if (wasFilled && !willFill) rampSeq = DECAY;
+          else if (willFill) rampSeq = FILLED_FLICKER;
+          else rampSeq = EMPTY_FLICKER;
+
+          const stagger = Math.random() * STAGGER_MAX;
+          const stepDur = (TRANSITION_MS - stagger) / stages;
+
+          // Step through transition glyphs, then snap to the actual target glyph
+          // (which may be a ramp glyph like '%' that isn't in the transition vocab).
+          rampSeq.forEach((g, i) => {
+            const id = window.setTimeout(() => {
+              if (myToken !== tokenRef.current) return;
+              paintTransitionCell(r, c, g);
+            }, stagger + i * stepDur);
+            timeoutsRef.current.push(id);
+          });
+          const finalId = window.setTimeout(() => {
+            if (myToken !== tokenRef.current) return;
+            paintCell(r, c, targetGlyph);
+          }, stagger + stages * stepDur);
+          timeoutsRef.current.push(finalId);
+        }
+      }
+
+      lastGridRef.current = target;
+    },
+    [paintCell, paintTransitionCell],
+  );
+
+  // When set, the next paintField call (driven by the React re-render that
+  // results from a Randomize/Prev/Next state update) is suppressed — the ramp
+  // transition is already painting the same target.
+  const suppressNextPaintRef = useRef(false);
 
   const applyState = useCallback((s: State) => {
     setWaves(s.ws.map((w) => [...w] as Wave));
@@ -163,15 +301,18 @@ const AsciiPlayground = () => {
     setRamp(s.ramp);
   }, []);
 
-  const flashTo = useCallback(
+  // Kick off a ramp transition to the given state. We start the imperative
+  // ramp now and queue the React state update so sliders end up reflecting the
+  // new values. The next slider-driven paint is suppressed because the ramp is
+  // about to paint the same target.
+  const transitionToState = useCallback(
     (s: State) => {
-      setFlashing(true);
-      window.setTimeout(() => {
-        applyState(s);
-        setFlashing(false);
-      }, 120);
+      const target = generate(s.ws, s.thresh, s.R, s.C, s.warp, s.ramp);
+      transitionToField(target);
+      suppressNextPaintRef.current = true;
+      applyState(s);
     },
-    [applyState],
+    [applyState, transitionToField],
   );
 
   const pushHistory = useCallback((s: State) => {
@@ -195,20 +336,39 @@ const AsciiPlayground = () => {
       ramp,
     };
     pushHistory(next);
-    flashTo(next);
+    transitionToState(next);
   };
 
   const goPrev = () => {
     if (historyIdxRef.current <= 0) return;
     historyIdxRef.current -= 1;
-    flashTo(historyRef.current[historyIdxRef.current]);
+    transitionToState(historyRef.current[historyIdxRef.current]);
   };
 
   const goNext = () => {
     if (historyIdxRef.current >= historyRef.current.length - 1) return;
     historyIdxRef.current += 1;
-    flashTo(historyRef.current[historyIdxRef.current]);
+    transitionToState(historyRef.current[historyIdxRef.current]);
   };
+
+  // Slider effect: paint the field instantly whenever `ascii` changes, EXCEPT
+  // when the change came from transitionToState — in that case, the ramp is
+  // running and will paint the final frame itself.
+  useEffect(() => {
+    if (suppressNextPaintRef.current) {
+      suppressNextPaintRef.current = false;
+      return;
+    }
+    paintField(ascii);
+  }, [ascii, paintField]);
+
+  // Cleanup pending step timeouts on unmount.
+  useEffect(
+    () => () => {
+      timeoutsRef.current.forEach((id) => window.clearTimeout(id));
+    },
+    [],
+  );
 
   const handleWaveChange = (waveIdx: number, paramIdx: 0 | 1 | 2, value: number) => {
     setWaves((prev) => {
@@ -219,18 +379,19 @@ const AsciiPlayground = () => {
   };
 
   const copy = () => {
+    const text = ascii.map((row) => row.join("").trimEnd()).join("\n");
     const finish = (ok: boolean) => {
       setCopyState(ok ? "ok" : "error");
       window.setTimeout(() => setCopyState("idle"), 1800);
     };
     if (navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(ascii).then(() => finish(true)).catch(() => fallback());
+      navigator.clipboard.writeText(text).then(() => finish(true)).catch(() => fallback());
     } else {
       fallback();
     }
     function fallback() {
       const ta = document.createElement("textarea");
-      ta.value = ascii;
+      ta.value = text;
       ta.style.cssText = "position:fixed;top:-9999px;opacity:0;";
       document.body.appendChild(ta);
       ta.focus();
@@ -266,21 +427,36 @@ const AsciiPlayground = () => {
       </div>
 
       <div className="flex flex-1 min-h-0 items-center justify-center overflow-hidden px-4 pt-6">
-        <pre
-          className={`whitespace-pre text-left font-mono text-xs leading-[1.3] tracking-[0.12em] text-[#F80800] transition-opacity duration-100 sm:text-sm ${
-            flashing ? "opacity-0" : "opacity-100"
-          }`}
+        <div
+          className="text-left font-mono text-xs leading-[1.3] tracking-[0.12em] text-[#F80800] sm:text-sm"
+          style={{ whiteSpace: "pre" }}
         >
-          {/* Pad above and below with empty lines so total rendered height matches the
-              max row count (21). Without this, vertical flex-centering causes apparent
-              asymmetric trimming when row count changes — the visual top and bottom
-              both move because the <pre>'s height changed. With padding, the pre's
-              height is constant and changes to `rows` are visible as content actually
-              appearing/disappearing at the edges instead of the whole thing reflowing. */}
-          {"\n".repeat(Math.floor((ROWS_MAX - rows) / 2))}
-          {ascii}
-          {"\n".repeat(Math.ceil((ROWS_MAX - rows) / 2))}
-        </pre>
+          {/* Fixed ROWS_MAX × COLS_MAX cell grid. Field is centered into it; the
+              surround stays blank. Fixed dimensions keep the layout from
+              reflowing when the user adjusts rows/cols. */}
+          {Array.from({ length: ROWS_MAX }, (_, r) => (
+            <div key={r} style={{ display: "block" }}>
+              {Array.from({ length: COLS_MAX }, (_, c) => (
+                <span
+                  key={c}
+                  ref={(el) => {
+                    if (!cellsRef.current[r]) cellsRef.current[r] = [];
+                    cellsRef.current[r][c] = el;
+                  }}
+                  style={{
+                    display: "inline-block",
+                    width: "1ch",
+                    textAlign: "center",
+                    opacity: 0,
+                    transition: "opacity 0.18s ease",
+                  }}
+                >
+                  {" "}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="flex flex-col gap-2.5 p-4">

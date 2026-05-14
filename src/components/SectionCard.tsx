@@ -5,6 +5,8 @@ import TruncTooltip from "./TruncTooltip";
 
 export interface SectionItem {
   title: string;
+  displayName?: string;
+  prize?: string;
   modalTitle?: string;
   subtitle?: string;
   description?: string;
@@ -23,6 +25,8 @@ interface SectionCardProps {
   items: SectionItem[];
   disableGlitch?: boolean;
   badge?: string;
+  showLegend?: boolean;
+  showCount?: boolean;
 }
 
 const ImageCarousel = ({ images, title }: { images: string[]; title: string }) => {
@@ -99,7 +103,14 @@ const useVisited = (key: string) => {
   return { visited: visitedStore[key], markVisited };
 };
 
-const SectionCard = ({ title, items, disableGlitch, badge }: SectionCardProps) => {
+const SectionCard = ({
+  title,
+  items,
+  disableGlitch,
+  badge,
+  showLegend,
+  showCount = true,
+}: SectionCardProps) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [closing, setClosing] = useState(false);
   const { visited, markVisited } = useVisited(`mg-visited:${title}`);
@@ -153,15 +164,30 @@ const SectionCard = ({ title, items, disableGlitch, badge }: SectionCardProps) =
     <>
       {/* Card with scrollable preview */}
       <div className="border border-border rounded-sm bg-card overflow-hidden">
-        <div className="px-4 py-3 border-b border-border flex items-center gap-2">
-          <span className="text-sm font-medium text-foreground tracking-wide uppercase">
-            {title}
-          </span>
-          {badge && (
-            <span className="px-1.5 py-0.5 text-[10px] font-medium border border-border rounded-sm bg-accent/50 text-muted-foreground">
-              {badge}
+        <div className="px-4 py-3 border-b border-border flex items-center justify-between gap-2">
+          <div className="flex items-baseline gap-1.5 min-w-0">
+            <span className="text-sm font-medium text-foreground tracking-wide uppercase">
+              {title}
             </span>
-          )}
+            {showCount && (
+              <span className="text-xs font-normal tabular-nums text-muted-foreground/65">
+                <span className="text-border mr-1">•</span>
+                {items.length}
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            {badge && (
+              <span className="px-1.5 py-0.5 text-[10px] font-medium border border-border rounded-sm bg-accent/50 text-muted-foreground">
+                {badge}
+              </span>
+            )}
+            {showLegend && (
+              <span className="text-[10px] text-muted-foreground flex items-center gap-1">
+                <span className="text-[#F80800] font-bold">*</span> = now
+              </span>
+            )}
+          </div>
         </div>
         <div className="max-h-[120px] 2xl:max-h-[180px] 3xl:max-h-[240px] 4xl:max-h-[320px] overflow-y-auto">
           {items.map((item, i) => {
@@ -172,17 +198,13 @@ const SectionCard = ({ title, items, disableGlitch, badge }: SectionCardProps) =
                 onClick={() => openModal(i)}
                 className="group flex items-center justify-between w-full px-4 py-2.5 hover:bg-accent transition-colors text-left border-b border-border last:border-b-0"
               >
-                <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors min-w-0 flex items-start">
-                  {item.current && (
-                    <sup
-                      aria-label="current"
-                      className="mr-1 mt-0.5 flex-shrink-0 text-[9px] leading-none font-bold"
-                      style={{ color: VISITED_RED }}
-                    >
-                      *
-                    </sup>
+                <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors min-w-0 flex items-center flex-1">
+                  <span className="truncate min-w-0">{item.displayName ?? item.title}</span>
+                  {item.prize && (
+                    <span className="flex-shrink-0 ml-1.5 text-[10px] font-normal text-muted-foreground/65 uppercase tracking-wide tabular-nums">
+                      {item.prize}
+                    </span>
                   )}
-                  <span className="truncate">{item.title}</span>
                 </span>
                 <ArrowRight
                   className={`w-3 h-3 flex-shrink-0 ml-2 transition-colors ${
@@ -190,6 +212,15 @@ const SectionCard = ({ title, items, disableGlitch, badge }: SectionCardProps) =
                   }`}
                   style={isVisited ? { color: VISITED_RED } : undefined}
                 />
+                {item.current && (
+                  <span
+                    aria-label="current"
+                    className="flex-shrink-0 ml-1 text-[10px] leading-none font-bold"
+                    style={{ color: VISITED_RED }}
+                  >
+                    *
+                  </span>
+                )}
               </button>
             );
           })}
@@ -227,22 +258,22 @@ const SectionCard = ({ title, items, disableGlitch, badge }: SectionCardProps) =
                             : "text-muted-foreground hover:bg-accent/60 hover:text-foreground"
                         }`}
                       >
-                        <span className="flex-1 min-w-0 flex items-start">
-                          {it.current && (
-                            <sup
-                              aria-label="current"
-                              className="mr-1 mt-0.5 flex-shrink-0 text-[10px] leading-none font-bold"
-                              style={{ color: VISITED_RED }}
-                            >
-                              *
-                            </sup>
-                          )}
-                          <TruncTooltip label={it.title} />
+                        <span className="flex-1 min-w-0 flex items-center">
+                          <TruncTooltip label={it.title} className="flex-1 min-w-0" />
                         </span>
                         <ArrowRight
                           className="w-3 h-3 flex-shrink-0 ml-2 transition-colors"
                           style={isVisited ? { color: VISITED_RED } : undefined}
                         />
+                        {it.current && (
+                          <span
+                            aria-label="current"
+                            className="flex-shrink-0 ml-1 text-[10px] leading-none font-bold"
+                            style={{ color: VISITED_RED }}
+                          >
+                            *
+                          </span>
+                        )}
                       </button>
                     </li>
                   );

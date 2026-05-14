@@ -169,9 +169,13 @@ const BlogCard = ({ posts }: BlogCardProps) => {
     <>
       {/* Card with scrollable preview */}
       <div className="border border-border rounded-sm bg-card overflow-hidden max-h-64 2xl:max-h-[340px] 3xl:max-h-[400px] 4xl:max-h-[480px] flex flex-col">
-        <div className="px-4 py-3 border-b border-border flex items-center gap-2">
+        <div className="px-4 py-3 border-b border-border flex items-center gap-1.5">
           <span className="text-sm font-medium text-foreground tracking-wide uppercase">
             BLOG
+          </span>
+          <span className="text-xs font-normal tabular-nums text-muted-foreground/65">
+            <span className="text-border mr-1">•</span>
+            {posts.length}
           </span>
         </div>
         <div className="max-h-[120px] 2xl:max-h-[180px] 3xl:max-h-[240px] 4xl:max-h-[320px] overflow-y-auto">

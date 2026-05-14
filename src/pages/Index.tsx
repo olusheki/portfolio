@@ -7,6 +7,7 @@ import { blogPosts } from "@/content/blog";
 import ThemeToggle from "@/components/ThemeToggle";
 import Minesweeper from "@/components/Minesweeper";
 import AsciiPlayground from "@/components/AsciiPlayground";
+import AsciiTimePattern from "@/components/AsciiTimePattern";
 import { Github, Linkedin, FileText, MapPin, Bomb } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -61,24 +62,32 @@ const experienceItems: SectionItem[] = [
     ],
   },
   {
-    title: "Android Developer & Event Coordinator - Branda ",
+    title: "Android Developer — Branda",
     current: true,
     subtitle: "Brandeis University · Branda App · Feb 2026 – Present",
     link: { text: "Learn More →", url: "https://www.instagram.com/brandaapp/" },
     bullets: [
-      "Spearheaded the Design-a-thon initiative in collaboration with faculty to crowdsource app feature improvements, managing the full lifecycle from ideation and prize-budgeting ($500) to digital marketing and recruitment",
-      "Executed a multi-channel outreach strategy via Instagram and personal recruitment to engage 50+ students, utilizing Google Forms to streamline the submission and data collection process for app feedback.",
       "Selected to develop the Android expansion of the Branda app (>5,000 users) with the primary objective of migrating the currently iOS-exclusive platform to Android to achieve 100% student body accessibility.",
     ],
   },
-  {
-    title: "Undergraduate Computational Biology Researcher",
+    {
+    title: "Comp Bio Researcher",
     current: true,
     subtitle: "Brandeis University · Sebastian Kadener Lab · Sep 2025 – Present",
     link: { text: "Learn More →", url: "https://www.kadenerlab.com/" },
     bullets: [
       "Developed high-fidelity data visualizations using Python and Seaborn to map over 800 unique gene expression patterns across multiple brain sections, improving the accuracy of tissue identification for the research team",
       "Optimized data processing pipelines for identifying gene markers across several tissues, directly supporting a large-scale spatial transcriptomics visualization project",
+    ],
+  },
+  {
+    title: "Event Coordinator — Branda",
+    current: true,
+    subtitle: "Brandeis University · Branda App · Feb 2026 – Present",
+    link: { text: "Learn More →", url: "https://www.instagram.com/brandaapp/" },
+    bullets: [
+      "Spearheaded the Design-a-thon initiative in collaboration with faculty to crowdsource app feature improvements, managing the full lifecycle from ideation and prize-budgeting ($500) to digital marketing and recruitment",
+      "Executed a multi-channel outreach strategy via Instagram and personal recruitment to engage 50+ students, utilizing Google Forms to streamline the submission and data collection process for app feedback.",
     ],
   },
   {
@@ -90,7 +99,7 @@ const experienceItems: SectionItem[] = [
     ]
   },
   {
-    title: "Technical Designer Intern — Brand New School",
+    title: "Technical Design Intern — BNS",
     subtitle: "New York, NY · May 2025 – Jun 2025",
     bullets: [
       "Gained production-level proficiency in Houdini, building procedural node networks and a custom text-to-3D letterform system over 7 weeks",
@@ -99,7 +108,7 @@ const experienceItems: SectionItem[] = [
     ],
   },
   {
-    title: "Software Engineering Fellow — Google / Code Nation",
+    title: "SWE Fellow — Google",
     subtitle: "New York, NY · Oct 2022 – Jun 2024",
     bullets: [
       "Completed a two-year Google-hosted coding fellowship (~120+ hours), building multiple front-end projects with JavaScript and React.js",
@@ -115,7 +124,7 @@ const experienceItems: SectionItem[] = [
     ],
   },
   {
-    title: "Web Developing Fellow — All Star Code",
+    title: "WebDev Fellow — All Star Code",
     subtitle: "New York, NY · Jul 2022 – Aug 2022",
     bullets: [
       "Selected for a competitive 6-week Summer Intensive (5,900+ applicants, ~1,000 participants to date)",
@@ -139,7 +148,9 @@ const experienceItems: SectionItem[] = [
 
 const projectItems: SectionItem[] = [
     {
-    title: "🥈 Probabilistic NCAA Forecasting Ensemble - Datathon",
+    title: "Probabilistic March Madness Forecasting Ensemble — Datathon 2026",
+    displayName: "NCAA Predictive Ensemble",
+    prize: "2nd",
     description:
       'Engineered a predictive machine learning pipeline using Python, LightGBM, and CatBoost to forecast 2026 NCAA March Madness tournament outcomes for the Brandeis University Datathon. Competing as the only undergraduate Computer Science team against 46 graduate-level business analytics teams, we were able to win 2nd Place and a $500 prize. Our robust 4-model ensemble evaluated 17 seasons of historical data, achieving a competitive 0.188 Mean Brier Score and correctly predicting 3 of the 4 actual Final Four teams.',
     image: datathonWin,
@@ -148,34 +159,41 @@ const projectItems: SectionItem[] = [
     tags: ["Python"]
   },
   {
-    title: "🥇 Museum Website Revamp - DeisHacks",
+    title: "Museum Website Revamp — DeisHacks 2026",
+    displayName: "Museum Site Revamp",
+    prize: "1st",
     description:
       'Led a 48-hour hackathon sprint revamping the Charles River Museum of Industry & Innovation\'s website as Lead Product Developer. This was my first time with UX/UI design and I was able to win 1st for UX/UI Design, $500 prize. There were 40 teams competing in the hackathon.',
     image: deishacksWin,
     link: { text: "View on Devpost →", url: "https://devpost.com/software/askdjaskd" },
   },
   {
-    title: "🥇 BioTrial Auditor - Lovable Buildathon 2026",
+    title: "BioTrial Auditor — Lovable Buildathon 2026",
+    displayName: "BioTrial Auditor",
+    prize: "1st",
     description:
       'Won First Place in the 2026 Lovable Buildathon, where I created the BioTrial Auditor, tool that helps researchers provide reliable reports using AI.',
     images: biotrialSlides,
     link: { text: "Try it out →", url: "https://olusheki.github.io/biotrial/login" },
   },
   {
-    title: "ShareService - All Star Code",
+    title: "ShareService — All Star Code",
+    displayName: "ShareService",
     description:
       "Full-stack volunteering accessibility website built at All Star Code. An audience member donated $100 to a featured organization after the demo.",
     link: { text: "View project →", url: "https://olusheki.github.io/ShareService/" },
   },
   {
-    title: "Mass Shootings in America - Data Science",
+    title: "Mass Shootings in America — Data Science",
+    displayName: "Mass Shootings (Data Viz)",
     description:
       "Data visualization project aiming to reveal patterns in mass shooting data to explore potential solutions.",
     pdf: `${import.meta.env.BASE_URL}mass-shootings-poster.pdf`,
     tags: ["Google Colab", "Seaborn", "Matplotlib"]
   },
   {
-    title: "iPurify - Generation Tech",
+    title: "iPurify — Generation Tech",
+    displayName: "iPurify",
     description: `iPurify is a concept app designed to address global water pollution by connecting communities with local water quality data and purification resources. Developed during the Generation Tech program, the project combines mobile-first design with real-world environmental data to empower users to bring awareness to the issue of water pollution in their community.\n
 In response to the United Nations sustainable development challenge 6 of Clean water and sanitation, we built iPurify, a mobile application that incentivizes global resistance against unclean water and to make clean drinking water accessible to all.`,
     video: "https://www.youtube.com/watch?v=B3HVzXXTwAk",
@@ -183,6 +201,7 @@ In response to the United Nations sustainable development challenge 6 of Clean w
   },
   {
     title: "BrandNewSchool Gallery",
+    displayName: "BNS Gallery",
     description: `Multimedia gallery showcasing 500+ digital artworks from the BrandNewSchool internship, exhibited via TV installation and prints.\n
 Artist Statement:\n
 My name is Daniel Olusheki, and I focused my senior project on the connections between technology and art. I’ve always been passionate about both of these topics: I’ve been drawing for as long as I can remember, and in the fall, I will study computer science at Brandeis University. I’ve always wanted to experiment with different types of art, so I decided to explore various media that emerged in distinct technological periods—charcoal (30,000 BCE), calligraphy (2000 BCE), watercolor (200 CE), photography (1820s), linoleum printing (Late 19th Century), pastels (Early 20th Century), and 3D art (1980s). This approach allowed me to learn about the different techniques required to create art in each medium. I decided to create self-portraits to maintain consistent subject matter in each medium and to push creativity.\n
@@ -268,8 +287,17 @@ const ClockLocation = () => {
       );
     };
     update();
-    const id = setInterval(update, 10000);
-    return () => clearInterval(id);
+    let timeoutId: number;
+    const schedule = () => {
+      const now = new Date();
+      const ms = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+      timeoutId = window.setTimeout(() => {
+        update();
+        schedule();
+      }, ms);
+    };
+    schedule();
+    return () => window.clearTimeout(timeoutId);
   }, []);
 
   return (
@@ -318,33 +346,42 @@ const Index = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-background px-8 md:px-16 lg:px-24 py-16">
       <div className="w-full max-w-4xl 2xl:max-w-5xl 3xl:max-w-6xl 4xl:max-w-[1800px] space-y-5 2xl:space-y-6 3xl:space-y-7 4xl:space-y-8">
-        <div className="flex items-start justify-between">
-          <div className="space-y-1">
-            <div className="text-xl md:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl font-light text-foreground">
-              <ChromaticGlitch phrases={HELLO_PHRASES} interval={4000} className="inline" />
-              <span className="text-muted-foreground">,</span>
+        <div className="grid grid-cols-[1fr_auto] gap-8 items-start">
+          <div className="flex flex-col gap-5 min-w-0">
+            <div className="space-y-1">
+              <div className="text-xl md:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl font-light text-foreground">
+                <ChromaticGlitch phrases={HELLO_PHRASES} interval={4000} className="inline" />
+                <span className="text-muted-foreground">,</span>
+              </div>
+              <h1 className="text-2xl md:text-3xl 2xl:text-4xl 3xl:text-5xl 4xl:text-6xl font-semibold text-foreground leading-relaxed">
+                <MonoGlitch trigger="hover" text="I'm Daniel Olusheki" skipIntro walkStep={3} />
+              </h1>
             </div>
-            <h1 className="text-2xl md:text-3xl 2xl:text-4xl 3xl:text-5xl 4xl:text-6xl font-semibold text-foreground leading-relaxed">
-              <MonoGlitch trigger="hover" text="I'm Daniel Olusheki" skipIntro walkStep={3} />
-            </h1>
-          </div>
-          <ClockLocation />
-        </div>
 
-        {/* Bio */}
-        <p className="text-sm 2xl:text-base 3xl:text-lg 4xl:text-xl text-muted-foreground leading-relaxed max-w-lg 2xl:max-w-2xl 3xl:max-w-3xl 4xl:max-w-4xl">
-          <MonoGlitch
-            trigger="hover"
-            text="First-year Computer Science and Biology student at Brandeis University who is passionate about solving complex problems through creative and analytical thinking."
-          />
-        </p>
+            <div className="md:hidden">
+              <ClockLocation />
+            </div>
+
+            <p className="text-sm 2xl:text-base 3xl:text-lg 4xl:text-xl text-muted-foreground leading-relaxed max-w-lg 2xl:max-w-2xl 3xl:max-w-3xl 4xl:max-w-4xl">
+              <MonoGlitch
+                trigger="hover"
+                text="First-year Computer Science and Biology student at Brandeis University who is passionate about solving complex problems through creative and analytical thinking."
+              />
+            </p>
+          </div>
+
+          <div className="hidden md:flex flex-col items-end gap-3">
+            <ClockLocation />
+            <AsciiTimePattern />
+          </div>
+        </div>
 
         {/* Section cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 2xl:gap-4 3xl:gap-5 4xl:gap-6">
-          <SectionCard title="Experience" items={experienceItems} />
+          <SectionCard title="Experience" items={experienceItems} showLegend />
           <SectionCard title="Projects" items={projectItems} />
-          <SectionCard title="Skills" items={skillItems} />
-          <SectionCard title="Courses" items={courseItems} badge="4.00 GPA" />
+          <SectionCard title="Skills" items={skillItems} showCount={false} />
+          <SectionCard title="Courses" items={courseItems} badge="4.00 GPA" showCount={false} />
           <LeetCodeCard className="h-full flex flex-col" />
           <BlogCard posts={blogPosts} />
         </div>
