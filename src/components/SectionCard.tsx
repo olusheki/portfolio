@@ -198,7 +198,7 @@ const SectionCard = ({
             )}
           </div>
         </div>
-        <div className="max-h-[120px] 2xl:max-h-[180px] 3xl:max-h-[240px] 4xl:max-h-[320px] overflow-y-auto">
+        <div className="max-h-[140px] 2xl:max-h-[200px] 3xl:max-h-[260px] 4xl:max-h-[340px] overflow-y-auto">
           {items.map((item, i) => {
             const isVisited = visited.has(item.title);
             return (

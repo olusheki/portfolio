@@ -71,7 +71,8 @@ const experienceItems: SectionItem[] = [
     ],
   },
     {
-    title: "Comp Bio Researcher",
+    title: "Computational Biology Researcher",
+    displayName: "Comp Bio Researcher",
     current: true,
     subtitle: "Brandeis University · Sebastian Kadener Lab · Sep 2025 – Present",
     link: { text: "Learn More →", url: "https://www.kadenerlab.com/" },
@@ -79,6 +80,14 @@ const experienceItems: SectionItem[] = [
       "Developed high-fidelity data visualizations using Python and Seaborn to map over 800 unique gene expression patterns across multiple brain sections, improving the accuracy of tissue identification for the research team",
       "Optimized data processing pipelines for identifying gene markers across several tissues, directly supporting a large-scale spatial transcriptomics visualization project",
     ],
+  },
+    {
+    title: "Project Manager - TAMID",
+    current: true,
+    subtitle: "TAMID Group @ Brandeis University · Oct 2025 – Present",
+    bullets: [
+      "Developed a comprehensive business plan for a startup, including multi-tiered B2B and B2C outreach strategies alongside 3-year financial projections, targeted marketing, risk mitigation, and legal compliance frameworks"
+    ]
   },
   {
     title: "Event Coordinator — Branda",
@@ -89,14 +98,6 @@ const experienceItems: SectionItem[] = [
       "Spearheaded the Design-a-thon initiative in collaboration with faculty to crowdsource app feature improvements, managing the full lifecycle from ideation and prize-budgeting ($500) to digital marketing and recruitment",
       "Executed a multi-channel outreach strategy via Instagram and personal recruitment to engage 50+ students, utilizing Google Forms to streamline the submission and data collection process for app feedback.",
     ],
-  },
-  {
-    title: "TAMID Group @ Brandeis",
-    current: true,
-    subtitle: "Brandeis University · Oct 2025 – Present",
-    bullets: [
-      "Developed a comprehensive business plan for a startup, including multi-tiered B2B and B2C outreach strategies alongside 3-year financial projections, targeted marketing, risk mitigation, and legal compliance frameworks"
-    ]
   },
   {
     title: "Technical Design Intern — BNS",
@@ -177,6 +178,18 @@ const projectItems: SectionItem[] = [
     link: { text: "Try it out →", url: "https://olusheki.github.io/biotrial/login" },
   },
   {
+    title: "BrandNewSchool Gallery",
+    displayName: "BrandNewSchool Gallery",
+    description: `Multimedia gallery showcasing 500+ digital artworks from the BrandNewSchool internship, exhibited via TV installation and prints.\n
+Artist Statement:\n
+My name is Daniel Olusheki, and I focused my senior project on the connections between technology and art. I’ve always been passionate about both of these topics: I’ve been drawing for as long as I can remember, and in the fall, I will study computer science at Brandeis University. I’ve always wanted to experiment with different types of art, so I decided to explore various media that emerged in distinct technological periods—charcoal (30,000 BCE), calligraphy (2000 BCE), watercolor (200 CE), photography (1820s), linoleum printing (Late 19th Century), pastels (Early 20th Century), and 3D art (1980s). This approach allowed me to learn about the different techniques required to create art in each medium. I decided to create self-portraits to maintain consistent subject matter in each medium and to push creativity.\n
+The fundamental idea behind my 3D art was inspired by BrandNewSchool, a creative studio and advertising agency where I interned and where I learned Houdini, a 3D art software. They created an experimental ad for Google Cloud Next 2025, designed to push the boundaries of letterforms in order to create something distinct. This inspired me because letters can appear as simple shapes until you stretch the limits. Another person who influenced my art was William Kentridge, a charcoal artist who incorporated skillful composition and color into his drawings. I also referenced calligraphy guidebooks to emulate precise Gothic calligraphy and drew inspiration from the work of Van Gogh when creating my oil pastel self-portrait. Each of these different references depicted mastery in their respective media; however, I noticed that as technology advanced, the media gave less creative constraints and were significantly quicker to create.\n
+Exploring all of these different media taught me several important lessons: the art techniques used before modern technology relied on essential visual principles, which are still crucial now in order to create artistic stuff. For example, learning software won't result in good art if you don’t have an understanding of color theory, composition, or lighting. These principles and skills are timeless and required of artists working in any media if they want to bring out the full potential of the medium. Creating all this art was eye-opening as it taught me that art is art, regardless of the different ways it’s made.`,
+    video: "https://youtu.be/y2omaIYksDk",
+    images: bnsGallerySlides,
+    tags: ["Houdini", "Adobe After Effects"]
+  },
+  {
     title: "ShareService — All Star Code",
     displayName: "ShareService",
     description:
@@ -198,18 +211,6 @@ const projectItems: SectionItem[] = [
 In response to the United Nations sustainable development challenge 6 of Clean water and sanitation, we built iPurify, a mobile application that incentivizes global resistance against unclean water and to make clean drinking water accessible to all.`,
     video: "https://www.youtube.com/watch?v=B3HVzXXTwAk",
     images: ipurifySlides,
-  },
-  {
-    title: "BrandNewSchool Gallery",
-    displayName: "BNS Gallery",
-    description: `Multimedia gallery showcasing 500+ digital artworks from the BrandNewSchool internship, exhibited via TV installation and prints.\n
-Artist Statement:\n
-My name is Daniel Olusheki, and I focused my senior project on the connections between technology and art. I’ve always been passionate about both of these topics: I’ve been drawing for as long as I can remember, and in the fall, I will study computer science at Brandeis University. I’ve always wanted to experiment with different types of art, so I decided to explore various media that emerged in distinct technological periods—charcoal (30,000 BCE), calligraphy (2000 BCE), watercolor (200 CE), photography (1820s), linoleum printing (Late 19th Century), pastels (Early 20th Century), and 3D art (1980s). This approach allowed me to learn about the different techniques required to create art in each medium. I decided to create self-portraits to maintain consistent subject matter in each medium and to push creativity.\n
-The fundamental idea behind my 3D art was inspired by BrandNewSchool, a creative studio and advertising agency where I interned and where I learned Houdini, a 3D art software. They created an experimental ad for Google Cloud Next 2025, designed to push the boundaries of letterforms in order to create something distinct. This inspired me because letters can appear as simple shapes until you stretch the limits. Another person who influenced my art was William Kentridge, a charcoal artist who incorporated skillful composition and color into his drawings. I also referenced calligraphy guidebooks to emulate precise Gothic calligraphy and drew inspiration from the work of Van Gogh when creating my oil pastel self-portrait. Each of these different references depicted mastery in their respective media; however, I noticed that as technology advanced, the media gave less creative constraints and were significantly quicker to create.\n
-Exploring all of these different media taught me several important lessons: the art techniques used before modern technology relied on essential visual principles, which are still crucial now in order to create artistic stuff. For example, learning software won't result in good art if you don’t have an understanding of color theory, composition, or lighting. These principles and skills are timeless and required of artists working in any media if they want to bring out the full potential of the medium. Creating all this art was eye-opening as it taught me that art is art, regardless of the different ways it’s made.`,
-    video: "https://youtu.be/y2omaIYksDk",
-    images: bnsGallerySlides,
-    tags: ["Houdini", "Adobe After Effects"]
   },
   {
     title: "Drawing in Distortion",
@@ -365,7 +366,7 @@ const Index = () => {
             <p className="text-sm 2xl:text-base 3xl:text-lg 4xl:text-xl text-muted-foreground leading-relaxed max-w-lg 2xl:max-w-2xl 3xl:max-w-3xl 4xl:max-w-4xl">
               <MonoGlitch
                 trigger="hover"
-                text="First-year Computer Science and Biology student at Brandeis University who is passionate about solving complex problems through creative and analytical thinking."
+                text="Second-year Computer Science and Biology student at Brandeis University who is passionate about solving complex problems through creative and analytical thinking."
               />
             </p>
           </div>

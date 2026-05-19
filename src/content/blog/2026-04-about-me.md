@@ -13,6 +13,6 @@ As hobbies, I like to do a lot of creative things like drawing, sewing, and play
 
 If my friends had to describe me, they might say these things: I'm funny, optimistic, and kind. I'm kind of introverted, but I speak when I have something to say.
 
-![One of my drawings](/draw.jpeg)
+![One of my drawings of me and my siblings](/draw.jpeg)
 
 Fun Facts: My favorite meal is probably smoky jollof rice with BBQ chicken. I have over **6100** hours on my headphones (since August 2023). I sleep on average **7h and 34min**. My favorite emoji is this: 🥲. My favorite animal is the hummingbird. I have two brothers, and I'm the middle child. My favorite Pokémon is Marshadow.
