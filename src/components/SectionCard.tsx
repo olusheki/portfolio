@@ -209,6 +209,15 @@ const SectionCard = ({
               >
                 <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors min-w-0 flex items-center flex-1">
                   <span className="truncate min-w-0">{item.displayName ?? item.title}</span>
+                  {item.current && (
+                    <sup
+                      aria-label="current"
+                      className="ml-0.5 mt-0.5 flex-shrink-0 text-[9px] leading-none font-bold"
+                      style={{ color: VISITED_RED }}
+                    >
+                      *
+                    </sup>
+                  )}
                   {item.prize && (
                     <span className="flex-shrink-0 ml-1.5 text-[10px] font-normal text-muted-foreground/65 uppercase tracking-wide tabular-nums">
                       {item.prize}
@@ -221,15 +230,6 @@ const SectionCard = ({
                   }`}
                   style={isVisited ? { color: VISITED_RED } : undefined}
                 />
-                {item.current && (
-                  <span
-                    aria-label="current"
-                    className="flex-shrink-0 ml-1 text-[10px] leading-none font-bold"
-                    style={{ color: VISITED_RED }}
-                  >
-                    *
-                  </span>
-                )}
               </button>
             );
           })}
@@ -253,7 +253,7 @@ const SectionCard = ({
                   {title}
                 </span>
               </div>
-              <ul className="flex-1 overflow-y-auto py-1">
+              <ul className="flex-1 overflow-y-auto">
                 {items.map((it, i) => {
                   const isActive = i === activeIndex;
                   const isVisited = visited.has(it.title);
@@ -268,21 +268,21 @@ const SectionCard = ({
                         }`}
                       >
                         <span className="flex-1 min-w-0 flex items-center">
-                          <TruncTooltip label={it.title} className="flex-1 min-w-0" />
+                          <TruncTooltip label={it.title} />
+                          {it.current && (
+                            <sup
+                              aria-label="current"
+                              className="ml-0.5 mt-0.5 flex-shrink-0 text-[9px] leading-none font-bold"
+                              style={{ color: VISITED_RED }}
+                            >
+                              *
+                            </sup>
+                          )}
                         </span>
                         <ArrowRight
                           className="w-3 h-3 flex-shrink-0 ml-2 transition-colors"
                           style={isVisited ? { color: VISITED_RED } : undefined}
                         />
-                        {it.current && (
-                          <span
-                            aria-label="current"
-                            className="flex-shrink-0 ml-1 text-[10px] leading-none font-bold"
-                            style={{ color: VISITED_RED }}
-                          >
-                            *
-                          </span>
-                        )}
                       </button>
                     </li>
                   );

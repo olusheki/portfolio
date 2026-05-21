@@ -82,7 +82,7 @@ const experienceItems: SectionItem[] = [
     ],
   },
     {
-    title: "Project Manager - TAMID",
+    title: "Project Manager — TAMID",
     current: true,
     subtitle: "TAMID Group @ Brandeis University · Oct 2025 – Present",
     bullets: [

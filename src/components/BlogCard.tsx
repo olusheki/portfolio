@@ -240,7 +240,7 @@ const BlogCard = ({ posts }: BlogCardProps) => {
                   BLOG
                 </span>
               </div>
-              <ul className="flex-1 overflow-y-auto py-1">
+              <ul className="flex-1 overflow-y-auto">
                 {posts.map((p, i) => {
                   const isActive = i === activeIndex;
                   const isVisited = visited.has(p.title);
