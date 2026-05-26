@@ -70,7 +70,7 @@ const experienceItems: SectionItem[] = [
       "Selected to develop the Android expansion of the Branda app (>5,000 users) with the primary objective of migrating the currently iOS-exclusive platform to Android to achieve 100% student body accessibility.",
     ],
   },
-    {
+  {
     title: "Computational Biology Researcher",
     displayName: "Comp Bio Researcher",
     current: true,
@@ -81,7 +81,7 @@ const experienceItems: SectionItem[] = [
       "Optimized data processing pipelines for identifying gene markers across several tissues, directly supporting a large-scale spatial transcriptomics visualization project",
     ],
   },
-    {
+  {
     title: "Project Manager — TAMID",
     current: true,
     subtitle: "TAMID Group @ Brandeis University · Oct 2025 – Present",
@@ -148,7 +148,7 @@ const experienceItems: SectionItem[] = [
 ];
 
 const projectItems: SectionItem[] = [
-    {
+  {
     title: "Probabilistic March Madness Forecasting Ensemble — Datathon 2026",
     displayName: "NCAA Predictive Ensemble",
     prize: "2nd",
@@ -267,7 +267,7 @@ const courseItems: SectionItem[] = [
     title: "Biology",
     tags: ["BIOL 15A: Cells and Organisms", "BIOL 14A: Genetics and Genomics", "BIOL 91G: Introduction to Research Practice"],
   },
-    {
+  {
     title: "Miscellaneous",
     tags: ["FA 80A: Modern Architecture", "FA 3A: Introduction to Drawing I", "ENG 142A: Blackness and Horror", "FYS 8A: Chinese Poetry"],
   },
@@ -382,7 +382,7 @@ const Index = () => {
           <SectionCard title="Experience" items={experienceItems} showLegend />
           <SectionCard title="Projects" items={projectItems} />
           <SectionCard title="Skills" items={skillItems} showCount={false} />
-          <SectionCard title="Courses" items={courseItems} badge="4.00 GPA" showCount={false} />
+          <SectionCard title="Courses" items={courseItems} badge="3.96 GPA" showCount={false} />
           <LeetCodeCard className="h-full flex flex-col" />
           <BlogCard posts={blogPosts} />
         </div>
