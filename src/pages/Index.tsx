@@ -14,6 +14,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { useLeetCodeStats } from "@/hooks/useLeetCodeStats";
 import deishacksWin from "@/assets/deishacks-win.png";
 import datathonWin from "@/assets/datathon-win.jpg";
+import abgslide from "@/assets/abgslide.png";
+import idgwslide from "@/assets/idgwslide.png";
 
 const distortionSlides = Object.values(
   import.meta.glob("@/assets/distortion/slide-*.jpg", { eager: true, import: "default" })
@@ -109,7 +111,8 @@ const experienceItems: SectionItem[] = [
     ],
   },
   {
-    title: "SWE Fellow — Google",
+    title: "SWE Fellow - Google / Code Nation",
+    displayName: "SWE Fellow — Google",
     subtitle: "New York, NY · Oct 2022 – Jun 2024",
     bullets: [
       "Completed a two-year Google-hosted coding fellowship (~120+ hours), building multiple front-end projects with JavaScript and React.js",
@@ -156,8 +159,8 @@ const projectItems: SectionItem[] = [
       'Engineered a predictive machine learning pipeline using Python, LightGBM, and CatBoost to forecast 2026 NCAA March Madness tournament outcomes for the Brandeis University Datathon. Competing as the only undergraduate Computer Science team against 46 graduate-level business analytics teams, we were able to win 2nd Place and a $500 prize. Our robust 4-model ensemble evaluated 17 seasons of historical data, achieving a competitive 0.188 Mean Brier Score and correctly predicting 3 of the 4 actual Final Four teams.',
     image: datathonWin,
     images: datathonSlides,
-    link: { text: "View on Github →", url: "https://github.com/DanielASC22/datahon2026" },
-    tags: ["Python"]
+    link: { text: "View on Github →", url: "https://github.com/olusheki/datahon2026" },
+    tags: ["Python", "Scikit-Learn", "Machine Learning"]
   },
   {
     title: "Museum Website Revamp — DeisHacks 2026",
@@ -173,7 +176,7 @@ const projectItems: SectionItem[] = [
     displayName: "BioTrial Auditor",
     prize: "1st",
     description:
-      'Won First Place in the 2026 Lovable Buildathon, where I created the BioTrial Auditor, tool that helps researchers provide reliable reports using AI.',
+      'Won First Place in the 2026 Lovable Buildathon, where I created the BioTrial Auditor, tool that helps clinical researchers provide reliable reports using AI.',
     images: biotrialSlides,
     link: { text: "Try it out →", url: "https://olusheki.github.io/biotrial/login" },
   },
@@ -187,22 +190,22 @@ The fundamental idea behind my 3D art was inspired by BrandNewSchool, a creative
 Exploring all of these different media taught me several important lessons: the art techniques used before modern technology relied on essential visual principles, which are still crucial now in order to create artistic stuff. For example, learning software won't result in good art if you don’t have an understanding of color theory, composition, or lighting. These principles and skills are timeless and required of artists working in any media if they want to bring out the full potential of the medium. Creating all this art was eye-opening as it taught me that art is art, regardless of the different ways it’s made.`,
     video: "https://youtu.be/y2omaIYksDk",
     images: bnsGallerySlides,
-    tags: ["Houdini", "Adobe After Effects"]
+    tags: ["Houdini", "Adobe After Effects", "Photoshop", "Asynchronous Systems", "Visual Art"]
   },
   {
-    title: "ShareService — All Star Code",
-    displayName: "ShareService",
-    description:
-      "Full-stack volunteering accessibility website built at All Star Code. An audience member donated $100 to a featured organization after the demo.",
-    link: { text: "View project →", url: "https://olusheki.github.io/ShareService/" },
+    title: "Amen Break Generator",
+    displayName: "Amen Break Generator",
+    image: abgslide,
+    description: "Side project I made using Lovable with some really cool features, inspired by music production and chopping samples. It features an intuitive 16-pad midi controller with several audio effects, like reverse, stutter, bitcrushing, and even chaos. There are other tabs to give flexibility in chopping, like a sequential mode where you pre-type the order of the pads (and can download it), and a camera mode where you can play the music by pinching different fingers together. There is also a trimmer where you can transform your audio to perfectly loop in the Amen Break Generator webapp.",
+    link: {text: "Try it out →", url: "https://olusheki.github.io/abg/"},
+    tags: ["React", "TypeScript", "Vite", "Web Audio API", "Mediapipe", "Computer Vision"]
   },
   {
-    title: "Mass Shootings in America — Data Science",
-    displayName: "Mass Shootings (Data Viz)",
-    description:
-      "Data visualization project aiming to reveal patterns in mass shooting data to explore potential solutions.",
-    pdf: `${import.meta.env.BASE_URL}mass-shootings-poster.pdf`,
-    tags: ["Google Colab", "Seaborn", "Matplotlib"]
+    title: "Indigew — Easy Sashiko",
+    image: idgwslide,
+    description: `Indigew is a precision CAD-style web application for Sashiko — the Japanese art of decorative reinforcement stitching. It's a browser-based parametric design tool for planning, drafting, and exporting sashiko patterns at life-size scale. I made it because a lot of knowledge passed around about fabric arts isn't super widely available on the internet, and a lot of people learn from others in real life. I thought that this website would help people get engaged with sashiko easily.\n
+The Sashiko Lab has many features: layers, color customization, 65 traditional pattern presets, canvas manipulations, estimates for stitching, and an export for a life-sizes version of your pattern to start stitching in real life. There's also a learn tab for people who want to learn about its history and how to get started stitching in real life.`,
+    link: {text: "Try it out ", url: "https://olusheki.github.io/indigew/"},
   },
   {
     title: "iPurify — Generation Tech",
@@ -213,11 +216,21 @@ In response to the United Nations sustainable development challenge 6 of Clean w
     images: ipurifySlides,
   },
   {
-    title: "Drawing in Distortion",
+    title: "Mass Shootings in America — Data Science",
+    displayName: "Mass Shootings (Data Viz)",
     description:
-      "An exploration of 5-point perspective, experimenting with a unique way of viewing and representing life through distortion.",
-    images: distortionSlides,
+      "Data visualization project aiming to reveal patterns in mass shooting data to explore potential solutions.",
+    pdf: `${import.meta.env.BASE_URL}mass-shootings-poster.pdf`,
+    tags: ["Google Colab", "Seaborn", "Matplotlib", "Pandas"]
   },
+  {
+    title: "ShareService — All Star Code",
+    displayName: "ShareService",
+    description:
+      "My very first website. Full-stack volunteering accessibility website built at All Star Code. An audience member donated $100 to a featured organization after the demo.",
+    link: { text: "View project →", url: "https://olusheki.github.io/ShareService/" },
+    tags: ["HTML", "CSS", "JavaScript"],
+  }
 ];
 
 const skillItems: SectionItem[] = [

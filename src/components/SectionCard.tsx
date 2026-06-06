@@ -152,8 +152,8 @@ const SectionCard = ({
       if (activeIndexRef.current === null) return;
       if (e.repeat) return; // ignore key-repeat to prevent mid-glitch retriggers
       if (e.key === "Escape") closeModal();
-      if (e.key === "ArrowRight") goTo(activeIndexRef.current + 1);
-      if (e.key === "ArrowLeft") goTo(activeIndexRef.current - 1);
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") goTo(activeIndexRef.current + 1);
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp") goTo(activeIndexRef.current - 1);
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
@@ -309,7 +309,23 @@ const SectionCard = ({
                 </div>
 
                 <h2 className="text-lg font-semibold tracking-wide mb-4 text-foreground break-words pr-8">
-                  {disableGlitch ? (
+                  {item.link ? (
+                    <a
+                      href={item.link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline underline-offset-4"
+                    >
+                      {disableGlitch ? (
+                        item.modalTitle || item.title
+                      ) : (
+                        <MonoGlitch
+                          text={item.modalTitle || item.title}
+                          skipFirstAnimation
+                        />
+                      )}
+                    </a>
+                  ) : disableGlitch ? (
                     item.modalTitle || item.title
                   ) : (
                     <MonoGlitch
