@@ -206,6 +206,7 @@ Exploring all of these different media taught me several important lessons: the 
     description: `Indigew is a precision CAD-style web application for Sashiko — the Japanese art of decorative reinforcement stitching. It's a browser-based parametric design tool for planning, drafting, and exporting sashiko patterns at life-size scale. I made it because a lot of knowledge passed around about fabric arts isn't super widely available on the internet, and a lot of people learn from others in real life. I thought that this website would help people get engaged with sashiko easily.\n
 The Sashiko Lab has many features: layers, color customization, 65 traditional pattern presets, canvas manipulations, estimates for stitching, and an export for a life-sizes version of your pattern to start stitching in real life. There's also a learn tab for people who want to learn about its history and how to get started stitching in real life.`,
     link: {text: "Try it out ", url: "https://olusheki.github.io/indigew/"},
+    tags: ["React", "TypeScript", "Vite", "UX/UI", "Fiber Arts"]
   },
   {
     title: "iPurify — Generation Tech",
@@ -214,6 +215,7 @@ The Sashiko Lab has many features: layers, color customization, 65 traditional p
 In response to the United Nations sustainable development challenge 6 of Clean water and sanitation, we built iPurify, a mobile application that incentivizes global resistance against unclean water and to make clean drinking water accessible to all.`,
     video: "https://www.youtube.com/watch?v=B3HVzXXTwAk",
     images: ipurifySlides,
+    tags: ["Wireframing", "Thunkable", "Collaboration", "Research"]
   },
   {
     title: "Mass Shootings in America — Data Science",

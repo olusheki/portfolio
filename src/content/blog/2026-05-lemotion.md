@@ -1,5 +1,5 @@
 ---
-title: "Lemotion & Grieving a Winstreak"
+title: "Grieving a Winstreak"
 date: 2026-05-05
 excerpt: ...This was my fourth competition, and since I won the last three in a row, I didn't think it was luck anymore...
 links:
