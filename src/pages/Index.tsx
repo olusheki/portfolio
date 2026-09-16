@@ -57,22 +57,49 @@ const HELLO_PHRASES = [
 ];
 
 const experienceItems: SectionItem[] = [
-  {
-    title: "Incoming Positions",
-    current: true,
-    bullets: [
-      "Community Advisor (Resident Assistant) @ Brandeis University - Aug 2026",
-      "COSI 12B SSSP Peer Tutor @ Brandeis University - Aug 2026"
-    ],
-  },
-  {
-    title: "AI/ML Fellow — Break Through Tech AI",
-    displayName: "AI/ML Fellow — BTT",
+    {
+    title: "AI/ML Fellow — Break Through Tech, Amazon Web Services",
+    displayName: "AI & ML Fellow — BTT/AWS",
     current: true,
     subtitle: "Cornell Tech · New York, NY · May 2026 – Present",
     bullets: [
       "Engineered an end-to-end Text-to-SQL RAG system using Python, LangChain, and the OpenAI API, transforming natural language prompts into executable SQL queries to extract and summarize enterprise database insights",
       "Trained and benchmarked a multi-layer Neural Network against Decision Tree baselines for binary income classification; optimized architecture via grid search tuning and evaluated performance using AUC-ROC and confusion matrices",
+    ],
+  },
+    {
+    title: "Computational Biology Researcher",
+    displayName: "Comp Bio Researcher",
+    current: true,
+    subtitle: "Brandeis University · Sebastian Kadener Lab · Oct 2025 – Present",
+    link: { text: "Learn More →", url: "https://www.kadenerlab.com/" },
+    bullets: [
+      "Built an end-to-end R/Python pipeline harmonizing 288K-cell scRNA-seq data with over 200GB spatial transcriptomics datasets, engineering memory-efficient workflows and RDS-based caching to run large-scale differential expression",
+      "Designed a multi-reference cell-type annotation system that cross-validates cluster identities against two independent marker atlases, with automated consistency checks that flag biologically implausible calls",
+      "Created 350+ programmatic spatial distribution models to enable visual boundary auditing, mapping isolated genetic markers directly onto Drosophila brain histology slices via Seaborn vector plots across 800+ unique gene expression patterns",
+    ],
+  },
+    {
+    title: "Computer Science SSSP Peer Tutor",
+    displayName: "Comp Sci Peer Tutor",
+    current: true,
+    subtitle: "Brandeis University · TRIO SSSP · Sep 2026 – Present",
+    bullets: [
+      "Tutor undergraduate students weekly in introductory and intermediate computer science courses (COSI 10A and COSI 12B), focusing on core concepts across Python and Java such as recursion, OOP principles, and data structures",
+      "Guide tutees through problem decomposition, code tracing, and debugging techniques, fostering independent problem-solving while upholding strict university academic integrity guidelines",
+      "Manage student progress documentation, completing detailed session contact reports and submitting weekly Workday activity logs to maintain operational compliance with program leadership"
+    ],
+  },
+  {
+    title: "Community Advisor (Resident Assistant)",
+    displayName: "Resident Assistant",
+    current: true,
+    subtitle: "Brandeis University · Waltham, MA · Aug 2026 – Present",
+    bullets: [
+      "Planned and executed diverse educational, social, and cultural programs to build community among hall residents",
+      "Conducted regular floor meetings to update residents on housing policies, campus events, and safety procedures",
+      "Completed administrative paperwork, including incident reports, room condition logs, and check-in/check-out documentation",
+
     ],
   },
   {
@@ -85,18 +112,7 @@ const experienceItems: SectionItem[] = [
       "Contributing to an analytics feedback loop that translates student user data from in-app submissions into the core product engineering roadmap",
     ],
   },
-  {
-    title: "Computational Biology Researcher",
-    displayName: "Comp Bio Researcher",
-    current: true,
-    subtitle: "Brandeis University · Sebastian Kadener Lab · Oct 2025 – Present",
-    link: { text: "Learn More →", url: "https://www.kadenerlab.com/" },
-    bullets: [
-      "Built an end-to-end R/Python pipeline harmonizing 288K-cell scRNA-seq data with over 200GB spatial transcriptomics datasets, engineering memory-efficient workflows and RDS-based caching to run large-scale differential expression",
-      "Designed a multi-reference cell-type annotation system that cross-validates cluster identities against two independent marker atlases, with automated consistency checks that flag biologically implausible calls",
-      "Created 350+ programmatic spatial distribution models to enable visual boundary auditing, mapping isolated genetic markers directly onto Drosophila brain histology slices via Seaborn vector plots across 800+ unique gene expression patterns",
-    ],
-  },
+
   {
     title: "Event Coordinator — Branda",
     current: true,
@@ -308,15 +324,28 @@ const courseItems: SectionItem[] = [
       "COSI 21A: Data Structures & Algorithms",
       "COSI 91G: Introduction to Research Practice",
       "MATH 15A: Linear Algebra",
+      "COSI 29A: Discrete Structures",
+      "COSI 104A: Intro to Machine Learning"
     ],
   },
   {
-    title: "Biology",
-    tags: ["BIOL 15A: Cells and Organisms", "BIOL 14A: Genetics and Genomics", "BIOL 91G: Introduction to Research Practice"],
+    title: "Life Sciences",
+    tags: [
+      "BIOL 15A: Cells and Organisms",
+      "BIOL 14A: Genetics and Genomics", 
+      "BIOL 91G: Introduction to Research Practice", 
+      "BIOL 18B: General Biology Lab", 
+      "CHEM 11A: General Chemistry"
+    ],
   },
   {
     title: "Miscellaneous",
-    tags: ["FA 80A: Modern Architecture", "FA 3A: Introduction to Drawing I", "ENG 142A: Blackness and Horror", "FYS 8A: Chinese Poetry"],
+    tags: [
+      "FA 80A: Modern Architecture", 
+      "FA 3A: Introduction to Drawing I", 
+      "ENG 142A: Blackness and Horror", 
+      "FYS 8A: Chinese Poetry"
+    ],
   },
 ];
 
